@@ -12,6 +12,11 @@ sequelize.sync().then(() => {
   console.log('Database connected');
 });
 
+// recriar o banco
+// sequelize.sync({ force: true }).then(() => {
+//   console.log('Database connected');
+// });
+
 app.listen(3000, () => {
   console.log('App online!')
 });

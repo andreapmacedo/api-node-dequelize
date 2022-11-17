@@ -1,7 +1,7 @@
 const express = require('express')
 
-const cursosRouter = require('./cursos')
-const estudantesRouter = require('./estudantes')
+const cursosRouter = require('./controller/cursos')
+const estudantesRouter = require('./controller/estudantes')
 
 const router = express.Router()
 
