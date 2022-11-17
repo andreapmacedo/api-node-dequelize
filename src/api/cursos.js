@@ -1,29 +1,23 @@
 const express = require('express')
 const router = express.Router()
 const { curso } = require('../models')
+const CursoService = require('../services/cursos')
 
-const listaCursos = []
-
-// router.get('/', (req, res) => {
-//   res.json(listaCursos)
-// })
-
-// router.post('/', (req, res) => {
-//   const dadosCurso = req.body
-//   console.log(dadosCurso)
-//   listaCursos.push(dadosCurso)
-//   res.send('Curso adicionado com sucesso!')
-// })
+const cursoService = new CursoService(curso)
 
 router.get('/', async (req, res) => {
-  const cursos = await curso.findAll()
-  res.json(cursos)
+  const cursos = await cursoService.get()
+  res.status(200).json(cursos)
 })
 
-router.post('/', async(req, res) => {
+router.post('/', async (req, res) => {
   const { nome, ch } = req.body
-  await curso.create({ nome, ch }) // função assíncrona do sequelize
-  res.send('Curso adicionado com sucesso!')
+  try {
+    await cursoService.adicionar({ nome, ch })
+    res.status(201).send('Curso adicionado com sucesso!')
+  } catch (erro) {
+    res.status(400).send('Não foi possível adicionar o curso!')
+  }
 })
 
 module.exports = router
